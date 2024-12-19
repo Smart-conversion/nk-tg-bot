@@ -96,7 +96,6 @@ bot.on('polling_error', (error) => {
 });
   bot.on('message', async msg => {
     const text = msg.text;
-    const chatId = msg.chat.id;
 
 
     if (text === '/start') {
@@ -110,7 +109,7 @@ bot.on('polling_error', (error) => {
 `, buttonNext_1);
     }
 
-    bot.on('callback_query', async msg => {
+    bot.on('callback_query', async function(msg){
       try {
         switch (msg.data) {
           case "btnNext1":
@@ -122,7 +121,7 @@ bot.on('polling_error', (error) => {
         console.log(error);
       }
     });
-    bot.on('callback_query', async msg => {
+    bot.on('callback_query', async function(msg){
       try {
         switch (msg.data) {
           case "btnNext2":
@@ -134,7 +133,7 @@ bot.on('polling_error', (error) => {
         console.log(error);
       }
     });
-    bot.on('callback_query', async msg => {
+    bot.on('callback_query', async function(msg){
       try {
         switch (msg.data) {
           case "btnNext3":
