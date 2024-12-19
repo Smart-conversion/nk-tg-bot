@@ -97,13 +97,12 @@ bot.on('polling_error', (error) => {
   bot.on('message', async msg => {
     const text = msg.text;
     const chatId = msg.chat.id;
-    console.log(chatId);
 
 
     if (text === '/start') {
       console.log(msg);
-      await bot.sendPhoto(chatId, 'img/bot-start.jpg');
-      await bot.sendMessage(chatId, `🙋‍♂  ${msg.from.first_name}, здравствуйте! В этом чате мы поможем вам правильно подготовиться к лазерной эпиляции, и дадим ответы на наиболее часто задаваемые вопросы от клиентов нашей клиники 
+      await bot.sendPhoto(msg.chat.id, 'img/bot-start.jpg');
+      await bot.sendMessage(msg.chat.id, `🙋‍♂  ${msg.from.first_name}, здравствуйте! В этом чате мы поможем вам правильно подготовиться к лазерной эпиляции, и дадим ответы на наиболее часто задаваемые вопросы от клиентов нашей клиники 
 
 Для начала предлагаю познакомиться. Меня зовут Богомолова Анна. Я Главный врач сети клиник «NK», врач-дерматовенеролог, косметолог. Специализируюсь в лазерной эпиляции и аппаратной косметологии.
 
@@ -115,9 +114,9 @@ bot.on('polling_error', (error) => {
       try {
         switch (msg.data) {
           case "btnNext1":
-            await bot.sendMessage(chatId, `Первый вопрос
+            await bot.sendMessage(msg.chat.id, `Первый вопрос
 ✅Безопасна ли лазерная эпиляция?`);
-            await bot.sendVideo(chatId, 'video/video-answer-1.mp4', buttonNext_2);
+            await bot.sendVideo(msg.chat.id, 'video/video-answer-1.mp4', buttonNext_2);
         }
       } catch (error) {
         console.log(error);
@@ -127,9 +126,9 @@ bot.on('polling_error', (error) => {
       try {
         switch (msg.data) {
           case "btnNext2":
-            await bot.sendMessage(chatId, `✅Второй вопрос
+            await bot.sendMessage(msg.chat.id, `✅Второй вопрос
 После лазерной эпиляции волосы исчезают навсегда?`);
-            await bot.sendVideo(chatId, 'video/video-answer-2.mp4', buttonNext_3);
+            await bot.sendVideo(msg.chat.id, 'video/video-answer-2.mp4', buttonNext_3);
         }
       } catch (error) {
         console.log(error);
