@@ -1,5 +1,4 @@
 const TelegramApi = require('node-telegram-bot-api');
-const token = '7648296652:AAGxzvepiVi7Zy24rxnA12tJNhZm6TUnUJs';
 const bot = new TelegramApi(process.env.BOT_API_KEY, { polling: true });
 const channelId = '-1001792092494';
 
@@ -93,7 +92,7 @@ const buttonOfTake = {
 
 
 
-const start = () => {
+// const start = () => {
   bot.on("polling_error", err => console.log(err.data.error.message));
 
   bot.on('message', async msg => {
@@ -275,9 +274,7 @@ https://krasotaclinic.ru/?utm_source=tg&utm_medium=group&utm_campaign=bot&utm_co
     });
   });
 
-
-
-
-}
-
-start();
+// }
+(async () => {
+  bot.start();
+})();
