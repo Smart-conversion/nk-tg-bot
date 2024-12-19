@@ -1,6 +1,8 @@
 const TelegramApi = require('node-telegram-bot-api');
 const token = '7648296652:AAGxzvepiVi7Zy24rxnA12tJNhZm6TUnUJs';
+//process.env.BOT_API_KEY = true;
 // const bot = new TelegramApi(process.env.BOT_API_KEY, { polling: true });
+
 const bot = new TelegramApi(token, { polling: true });
 const channelId = '-1001792092494';
 
@@ -84,25 +86,24 @@ const buttonsOfStart = {
   })
 };
 
-const buttonOfTake = {
-  reply_markup: JSON.stringify({
-    inline_keyboard: [
-      [{text: 'Забрать подарок', url: "https://disk.yandex.ru/d/oCLmDTCKr5EJ1Q", callback_data: 'takeFirstGift'}],
-    ]
-  })
-};
 
 
 
 // const start = () => {
-  bot.on("polling_error", err => console.log(err.data.error.message));
-
+  //bot.on("polling_error", err => console.log(err.data.error.message));
+bot.on('polling_error', (error) => {
+  console.log(error.message);
+});
   bot.on('message', async msg => {
     const text = msg.text;
+    const chatId = msg.chat.id;
+    console.log(chatId);
+
 
     if (text === '/start') {
-      await bot.sendPhoto(msg.chat.id, 'img/bot-start.jpg');
-      await bot.sendMessage(msg.chat.id, `🙋‍♂  ${msg.chat.first_name}, здравствуйте! В этом чате мы поможем вам правильно подготовиться к лазерной эпиляции, и дадим ответы на наиболее часто задаваемые вопросы от клиентов нашей клиники 
+      console.log(msg);
+      await bot.sendPhoto(chatId, 'img/bot-start.jpg');
+      await bot.sendMessage(chatId, `🙋‍♂  ${msg.from.first_name}, здравствуйте! В этом чате мы поможем вам правильно подготовиться к лазерной эпиляции, и дадим ответы на наиболее часто задаваемые вопросы от клиентов нашей клиники 
 
 Для начала предлагаю познакомиться. Меня зовут Богомолова Анна. Я Главный врач сети клиник «NK», врач-дерматовенеролог, косметолог. Специализируюсь в лазерной эпиляции и аппаратной косметологии.
 
@@ -114,11 +115,11 @@ const buttonOfTake = {
       try {
         switch (msg.data) {
           case "btnNext1":
-            await bot.sendMessage(msg.chat.id, `Первый вопрос
+            await bot.sendMessage(chatId, `Первый вопрос
 ✅Безопасна ли лазерная эпиляция?`);
-            await bot.sendVideo(msg.chat.id, 'video/video-answer-1.mp4', buttonNext_2);
+            await bot.sendVideo(chatId, 'video/video-answer-1.mp4', buttonNext_2);
         }
-      } catch(error) {
+      } catch (error) {
         console.log(error);
       }
     });
@@ -126,11 +127,11 @@ const buttonOfTake = {
       try {
         switch (msg.data) {
           case "btnNext2":
-            await bot.sendMessage(msg.chat.id, `✅Второй вопрос
+            await bot.sendMessage(chatId, `✅Второй вопрос
 После лазерной эпиляции волосы исчезают навсегда?`);
-            await bot.sendVideo(msg.chat.id, 'video/video-answer-2.mp4', buttonNext_3);
+            await bot.sendVideo(chatId, 'video/video-answer-2.mp4', buttonNext_3);
         }
-      } catch(error) {
+      } catch (error) {
         console.log(error);
       }
     });
@@ -138,11 +139,11 @@ const buttonOfTake = {
       try {
         switch (msg.data) {
           case "btnNext3":
-            await bot.sendMessage(msg.chat.id, `✅ Третий вопрос
+            await bot.sendMessage(chatId, `✅ Третий вопрос
 После лазерной эпиляции волосы исчезают навсегда?`);
-            await bot.sendVideo(msg.chat.id, 'video/video-answer-3.mp4', buttonNext_4);
+            await bot.sendVideo(chatId, 'video/video-answer-3.mp4', buttonNext_4);
         }
-      } catch(error) {
+      } catch (error) {
         console.log(error);
       }
     });
@@ -150,12 +151,12 @@ const buttonOfTake = {
       try {
         switch (msg.data) {
           case "btnNext4":
-            await bot.sendPhoto(msg.chat.id, 'img/bot-start-2.jpg');
-            await bot.sendMessage(msg.chat.id, `Меня зовут Симкович Оксана. Я ведущий врач сети клиник «NK», врач-дерматовенеролог, косметолог.
+            await bot.sendPhoto(chatId, 'img/bot-start-2.jpg');
+            await bot.sendMessage(chatId, `Меня зовут Симкович Оксана. Я ведущий врач сети клиник «NK», врач-дерматовенеролог, косметолог.
 
 Специализируюсь в лазерной эпиляции.`, buttonNext_5);
         }
-      } catch(error) {
+      } catch (error) {
         console.log(error);
       }
     });
@@ -163,10 +164,10 @@ const buttonOfTake = {
       try {
         switch (msg.data) {
           case "btnNext5":
-            await bot.sendMessage(msg.chat.id, `✅Четвертый вопрос`);
-            await bot.sendVideo(msg.chat.id, 'video/video-answer-4.mp4', buttonNext_6);
+            await bot.sendMessage(chatId, `✅Четвертый вопрос`);
+            await bot.sendVideo(chatId, 'video/video-answer-4.mp4', buttonNext_6);
         }
-      } catch(error) {
+      } catch (error) {
         console.log(error);
       }
     });
@@ -174,10 +175,10 @@ const buttonOfTake = {
       try {
         switch (msg.data) {
           case "btnNext6":
-            await bot.sendMessage(msg.chat.id, `✅Пятый вопрос`);
-            await bot.sendVideo(msg.chat.id, 'video/video-answer-5.mp4', buttonNext_7);
+            await bot.sendMessage(chatId, `✅Пятый вопрос`);
+            await bot.sendVideo(chatId, 'video/video-answer-5.mp4', buttonNext_7);
         }
-      } catch(error) {
+      } catch (error) {
         console.log(error);
       }
     });
@@ -185,10 +186,10 @@ const buttonOfTake = {
       try {
         switch (msg.data) {
           case "btnNext7":
-            await bot.sendMessage(msg.chat.id, `✅Шестой вопрос`);
-            await bot.sendVideo(msg.chat.id, 'video/video-answer-6.mp4', buttonNext_8);
+            await bot.sendMessage(chatId, `✅Шестой вопрос`);
+            await bot.sendVideo(chatId, 'video/video-answer-6.mp4', buttonNext_8);
         }
-      } catch(error) {
+      } catch (error) {
         console.log(error);
       }
     });
@@ -196,8 +197,8 @@ const buttonOfTake = {
       try {
         switch (msg.data) {
           case "btnNext8":
-            await bot.sendPhoto(msg.chat.id, 'img/question-1.jpg');
-            await bot.sendMessage(msg.chat.id, `Подготовка волос к лазерной эпиляции
+            await bot.sendPhoto(chatId, 'img/question-1.jpg');
+            await bot.sendMessage(chatId, `Подготовка волос к лазерной эпиляции
 
 ✅ Перед лазерной эпиляцией важно учесть оптимальную длину волос для достижения наилучших результатов. Рекомендуется, чтобы волосы были длиной около 1-3 мм. Эта длина позволяет лазеру эффективно захватывать меланин, расположенный в волосах, обеспечивая максимальное воздействие на фолликул.
 
@@ -207,7 +208,7 @@ const buttonOfTake = {
 
 ✅ Чтобы достичь оптимальной длины, рекомендуется провести простую стрижку волос в зоне обработки за 1-2 дня до процедуры. Это позволит сохранить волосы на нужной длине и обеспечит максимальную эффективность лазерного воздействия.`, buttonNext_9);
         }
-      } catch(error) {
+      } catch (error) {
         console.log(error);
       }
     });
@@ -215,7 +216,8 @@ const buttonOfTake = {
       try {
         switch (msg.data) {
           case "btnNext9":
-            await bot.sendMessage(msg.chat.id, `Подготовка кожи к лазерной эпиляции
+            console.log(msg);
+            await bot.sendMessage(chatId, `Подготовка кожи к лазерной эпиляции
 
 Чтобы лазерная эпиляция прошла успешно и эффективно, важно правильно подготовить кожу. Вот несколько простых шагов для этого:
 
@@ -225,31 +227,32 @@ const buttonOfTake = {
 
 ✅ Рекомендуется побрить волосы за 24-48 часов до сеанса. Это обеспечит более эффективное воздействие лазера на волосяные фолликулы, а не на видимые волосы. Избегайте восковых полосок и пинцетов, поскольку эти методы удаляют волосы с корнями и могут снизить эффективность процедуры.`, buttonNext_10);
         }
-      } catch(error) {
+      } catch (error) {
         console.log(error);
       }
     });
 
+//     bot.on('callback_query', async msg => {
+//       try {
+//         switch (msg.data) {
+//           case "btnNext10":
+//             console.log(msg);
+//             await bot.sendMessage(msg.from.id, `🔥 ${msg.from.first_name}, спасибо, что посмотрели наш ТОП вопросов по лазерной эпиляции.
+//
+// Также мы подготовили для вас персональный подарок! 🔥Скидка 300 руб на лазерную эпиляцию любой зоны🔥
+// Для получения скидки вступите в нашу группу в телеграмм https://t.me/nkclinik  и назовите администратору промокод при звонке`, buttonsOfStart);
+//         }
+//       } catch (error) {
+//         console.log(error);
+//       }
+//     });
     bot.on('callback_query', async msg => {
       try {
         switch (msg.data) {
-          case "btnNext10":
-            await bot.sendMessage(msg.chat.id, `🔥 ${msg.chat.first_name}, спасибо, что посмотрели наш ТОП вопросов по лазерной эпиляции.
-
-Также мы подготовили для вас персональный подарок! 🔥Скидка 300 руб на лазерную эпиляцию любой зоны🔥
-Для получения скидки вступите в нашу группу в телеграмм https://t.me/nkclinik  и назовите администратору промокод при звонке`, buttonsOfStart);
-        }
-      } catch(error) {
-        console.log(error);
-      }
-    });
-    bot.on('callback_query', async msg => {
-      try {
-        switch(msg.data) {
           case "takePromoCode":
             const subscribe = await bot.getChatMember(channelId, msg.from.id);
             console.log(subscribe);
-            if(subscribe.status == 'left' || subscribe.status == 'kicked') {
+            if (subscribe.status == 'left' || subscribe.status == 'kicked') {
               await bot.sendMessage(msg.message.chat.id, `Не увидели Вашу подписку
 
 Условия получения доступа — подписка на канал https://t.me/nkclinik
@@ -259,24 +262,21 @@ const buttonOfTake = {
               })
               break;
             } else {
-              await bot.sendMessage(msg.message.chat.id, `Отлично! Увидели подписку 😎`);
+              await bot.sendMessage(msg.chat.id, `Отлично! Увидели подписку 😎`);
 
-              await bot.sendPhoto(msg.message.chat.id, 'img/promocode-300.jpg');
+              await bot.sendPhoto(msg.chat.id, 'img/promocode-300.jpg');
 
-              await bot.sendMessage(msg.message.chat.id, `Если остались вопросы или вы хотите сделать лазерную эпиляцию, то мы к вашим услугам. Приходите на консультацию.
+              await bot.sendMessage(msg.chat.id, `Если остались вопросы или вы хотите сделать лазерную эпиляцию, то мы к вашим услугам. Приходите на консультацию.
 
 https://krasotaclinic.ru/?utm_source=tg&utm_medium=group&utm_campaign=bot&utm_content=epilation`);
             }
             break;
         }
-      }
-      catch(error) {
+      } catch (error) {
         console.log(error);
       }
     });
   });
-
 // }
-// (async () => {
-//   bot.start();
-// })();
+// start();
+
