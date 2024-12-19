@@ -98,6 +98,7 @@ bot.on('polling_error', (error) => {
     const text = msg.text;
 
 
+
     if (text === '/start') {
       console.log(msg);
       await bot.sendPhoto(msg.chat.id, 'img/bot-start.jpg');
@@ -108,7 +109,7 @@ bot.on('polling_error', (error) => {
 📨 Уже в следующем сообщении мы с вами начнем разбираться во всех тонкостях проведения лазерной эпиляции.
 `, buttonNext_1);
     }
-
+  });
     bot.on('callback_query', async function(msg){
       try {
         switch (msg.data) {
@@ -149,8 +150,8 @@ bot.on('polling_error', (error) => {
       try {
         switch (msg.data) {
           case "btnNext4":
-            await bot.sendPhoto(chatId, 'img/bot-start-2.jpg');
-            await bot.sendMessage(chatId, `Меня зовут Симкович Оксана. Я ведущий врач сети клиник «NK», врач-дерматовенеролог, косметолог.
+            await bot.sendPhoto(msg.chat.id, 'img/bot-start-2.jpg');
+            await bot.sendMessage(msg.chat.id, `Меня зовут Симкович Оксана. Я ведущий врач сети клиник «NK», врач-дерматовенеролог, косметолог.
 
 Специализируюсь в лазерной эпиляции.`, buttonNext_5);
         }
@@ -162,8 +163,8 @@ bot.on('polling_error', (error) => {
       try {
         switch (msg.data) {
           case "btnNext5":
-            await bot.sendMessage(chatId, `✅Четвертый вопрос`);
-            await bot.sendVideo(chatId, 'video/video-answer-4.mp4', buttonNext_6);
+            await bot.sendMessage(msg.chat.id, `✅Четвертый вопрос`);
+            await bot.sendVideo(msg.chat.id, 'video/video-answer-4.mp4', buttonNext_6);
         }
       } catch (error) {
         console.log(error);
@@ -173,8 +174,8 @@ bot.on('polling_error', (error) => {
       try {
         switch (msg.data) {
           case "btnNext6":
-            await bot.sendMessage(chatId, `✅Пятый вопрос`);
-            await bot.sendVideo(chatId, 'video/video-answer-5.mp4', buttonNext_7);
+            await bot.sendMessage(msg.chat.id, `✅Пятый вопрос`);
+            await bot.sendVideo(msg.chat.id, 'video/video-answer-5.mp4', buttonNext_7);
         }
       } catch (error) {
         console.log(error);
@@ -184,8 +185,8 @@ bot.on('polling_error', (error) => {
       try {
         switch (msg.data) {
           case "btnNext7":
-            await bot.sendMessage(chatId, `✅Шестой вопрос`);
-            await bot.sendVideo(chatId, 'video/video-answer-6.mp4', buttonNext_8);
+            await bot.sendMessage(msg.chat.id, `✅Шестой вопрос`);
+            await bot.sendVideo(msg.chat.id, 'video/video-answer-6.mp4', buttonNext_8);
         }
       } catch (error) {
         console.log(error);
@@ -195,8 +196,8 @@ bot.on('polling_error', (error) => {
       try {
         switch (msg.data) {
           case "btnNext8":
-            await bot.sendPhoto(chatId, 'img/question-1.jpg');
-            await bot.sendMessage(chatId, `Подготовка волос к лазерной эпиляции
+            await bot.sendPhoto(msg.chat.id, 'img/question-1.jpg');
+            await bot.sendMessage(msg.chat.id, `Подготовка волос к лазерной эпиляции
 
 ✅ Перед лазерной эпиляцией важно учесть оптимальную длину волос для достижения наилучших результатов. Рекомендуется, чтобы волосы были длиной около 1-3 мм. Эта длина позволяет лазеру эффективно захватывать меланин, расположенный в волосах, обеспечивая максимальное воздействие на фолликул.
 
@@ -215,7 +216,7 @@ bot.on('polling_error', (error) => {
         switch (msg.data) {
           case "btnNext9":
             console.log(msg);
-            await bot.sendMessage(chatId, `Подготовка кожи к лазерной эпиляции
+            await bot.sendMessage(msg.chat.id, `Подготовка кожи к лазерной эпиляции
 
 Чтобы лазерная эпиляция прошла успешно и эффективно, важно правильно подготовить кожу. Вот несколько простых шагов для этого:
 
@@ -230,20 +231,20 @@ bot.on('polling_error', (error) => {
       }
     });
 
-//     bot.on('callback_query', async msg => {
-//       try {
-//         switch (msg.data) {
-//           case "btnNext10":
-//             console.log(msg);
-//             await bot.sendMessage(msg.from.id, `🔥 ${msg.from.first_name}, спасибо, что посмотрели наш ТОП вопросов по лазерной эпиляции.
-//
-// Также мы подготовили для вас персональный подарок! 🔥Скидка 300 руб на лазерную эпиляцию любой зоны🔥
-// Для получения скидки вступите в нашу группу в телеграмм https://t.me/nkclinik  и назовите администратору промокод при звонке`, buttonsOfStart);
-//         }
-//       } catch (error) {
-//         console.log(error);
-//       }
-//     });
+    bot.on('callback_query', async msg => {
+      try {
+        switch (msg.data) {
+          case "btnNext10":
+            console.log(msg);
+            await bot.sendMessage(msg.from.id, `🔥 ${msg.from.first_name}, спасибо, что посмотрели наш ТОП вопросов по лазерной эпиляции.
+
+Также мы подготовили для вас персональный подарок! 🔥Скидка 300 руб на лазерную эпиляцию любой зоны🔥
+Для получения скидки вступите в нашу группу в телеграмм https://t.me/nkclinik  и назовите администратору промокод при звонке`, buttonsOfStart);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    });
     bot.on('callback_query', async msg => {
       try {
         switch (msg.data) {
@@ -274,7 +275,7 @@ https://krasotaclinic.ru/?utm_source=tg&utm_medium=group&utm_campaign=bot&utm_co
         console.log(error);
       }
     });
-  });
+
 // }
 // start();
 
