@@ -92,7 +92,7 @@ const buttonOfTake = {
 
 
 
-// const start = () => {
+const start = () => {
   bot.on("polling_error", err => console.log(err.data.error.message));
 
   bot.on('message', async msg => {
@@ -274,7 +274,7 @@ https://krasotaclinic.ru/?utm_source=tg&utm_medium=group&utm_campaign=bot&utm_co
     });
   });
 
-// }
-(async () => {
-  bot.start();
-})();
+}
+// (async () => {
+//   bot.start();
+// })();
