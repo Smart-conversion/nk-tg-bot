@@ -129,18 +129,19 @@ bot.on('text', async msg => {
 
 })
 bot.on('callback_query', async function(msg){
+  const chatId = msg.chat.id;
   try {
     switch (msg.data) {
       case "btnNext1":
-        await bot.sendMessage(msg.chat.id, `Первый вопрос
+        await bot.sendMessage(chatId, `Первый вопрос
 ✅Безопасна ли лазерная эпиляция?`);
-        await bot.sendVideo(msg.chat.id, 'video/video-answer-1.mp4', buttonNext_2);
+        await bot.sendVideo(chatId, 'video/video-answer-1.mp4', buttonNext_2);
         break;
 
       case "btnNext2":
-        await bot.sendMessage(msg.chat.id, `✅Второй вопрос
+        await bot.sendMessage(chatId, `✅Второй вопрос
 После лазерной эпиляции волосы исчезают навсегда?`);
-        await bot.sendVideo(msg.chat.id, 'video/video-answer-2.mp4', buttonNext_3);
+        await bot.sendVideo(chatId, 'video/video-answer-2.mp4', buttonNext_3);
         break;
 
       case "btnNext3":
