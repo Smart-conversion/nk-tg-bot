@@ -183,17 +183,17 @@ bot.on('callback_query', async function(ctx){
         break;
 
       case "btnNext10":
-        await bot.sendMessage(ctx.message.chat.id, `🔥 ${msg.from.first_name}, спасибо, что посмотрели наш ТОП вопросов по лазерной эпиляции.
+        await bot.sendMessage(ctx.message.chat.id, `🔥 ${ctx.from.first_name}, спасибо, что посмотрели наш ТОП вопросов по лазерной эпиляции.
 
 Также мы подготовили для вас персональный подарок! 🔥Скидка 300 руб на лазерную эпиляцию любой зоны🔥
 Для получения скидки вступите в нашу группу в телеграмм https://t.me/nkclinik  и назовите администратору промокод при звонке`, buttonsOfStart);
         break;
 
       case "takePromoCode":
-        const subscribe = await bot.getChatMember(channelId, msg.from.id);
+        const subscribe = await bot.getChatMember(channelId, ctx.from.id);
         console.log(subscribe);
         if (subscribe.status == 'left' || subscribe.status == 'kicked') {
-          await bot.sendMessage(msg.message.chat.id, `Не увидели Вашу подписку
+          await bot.sendMessage(ctx.message.chat.id, `Не увидели Вашу подписку
 
 Условия получения доступа — подписка на канал https://t.me/nkclinik
 
