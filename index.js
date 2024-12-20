@@ -1,9 +1,9 @@
 const TelegramApi = require('node-telegram-bot-api');
-const token = '7648296652:AAGxzvepiVi7Zy24rxnA12tJNhZm6TUnUJs';
-//process.env.BOT_API_KEY = true;
-// const bot = new TelegramApi(process.env.BOT_API_KEY, { polling: true });
+//const token = '7648296652:AAGxzvepiVi7Zy24rxnA12tJNhZm6TUnUJs';
+process.env.BOT_API_KEY = true;
+const bot = new TelegramApi(process.env.BOT_API_KEY, { polling: true });
 
-const bot = new TelegramApi(token, { polling: true });
+//const bot = new TelegramApi(token, { polling: true });
 const channelId = '-1001792092494';
 
 const buttonNext_1 = {
@@ -81,7 +81,14 @@ const buttonsOfStart = {
   reply_markup: JSON.stringify({
     inline_keyboard: [
       [{text: 'Подписаться на канал', url: "https://t.me/nkclinik", callback_data: 'subscribe'}],
-      [{text: 'Получить промокод', callback_data: 'takePromoCode'}],
+      [{text: 'Получить промокод', callback_data: 'takePromoCodeCheck'}],
+    ]
+  })
+};
+const takePromocode = {
+  reply_markup: JSON.stringify({
+    inline_keyboard: [
+      [{text: 'Получить промокод', url: "https://krasotaclinic.ru/lead/epiltaion-promo/?utm_source=tg-bot&utm_medium=cpc&utm_campaign=epiltaion-promo&utm_content=discount", callback_data: 'takePromoCode300'}],
     ]
   })
 };
@@ -98,7 +105,7 @@ bot.on('text', async msg => {
     if(msg.text == '/start') {
 
       await bot.sendPhoto(chatId, 'img/bot-start.jpg');
-      await bot.sendMessage(chatId, `🙋‍♂  , здравствуйте! В этом чате мы поможем вам правильно подготовиться к лазерной эпиляции, и дадим ответы на наиболее часто задаваемые вопросы от клиентов нашей клиники 
+      await bot.sendMessage(chatId, `🙋‍♂  ${msg.chat.first_name}, здравствуйте! В этом чате мы поможем вам правильно подготовиться к лазерной эпиляции, и дадим ответы на наиболее часто задаваемые вопросы от клиентов нашей клиники 
 
 Для начала предлагаю познакомиться. Меня зовут Богомолова Анна. Я Главный врач сети клиник «NK», врач-дерматовенеролог, косметолог. Специализируюсь в лазерной эпиляции и аппаратной косметологии.
 
@@ -125,13 +132,13 @@ bot.on('callback_query', async function(ctx){
 
       case "btnNext2":
         await bot.sendMessage(ctx.message.chat.id, `✅Второй вопрос
-После лазерной эпиляции волосы исчезают навсегда?`);
+Сколько потребуется процедур?`);
         await bot.sendVideo(ctx.message.chat.id, 'video/video-answer-2.mp4', buttonNext_3);
         break;
 
       case "btnNext3":
         await bot.sendMessage(ctx.message.chat.id, `✅ Третий вопрос
-После лазерной эпиляции волосы исчезают навсегда?`);
+Как выполняется процедура лазерной эпиляции?`);
         await bot.sendVideo(ctx.message.chat.id, 'video/video-answer-3.mp4', buttonNext_4);
         break;
 
@@ -143,17 +150,20 @@ bot.on('callback_query', async function(ctx){
         break;
 
       case "btnNext5":
-        await bot.sendMessage(ctx.message.chat.id, `✅Четвертый вопрос`);
+        await bot.sendMessage(ctx.message.chat.id, `✅Четвертый вопрос
+Удаляет ли лазерная эпиляция пушковые волосы?`);
         await bot.sendVideo(ctx.message.chat.id, 'video/video-answer-4.mp4', buttonNext_6);
         break;
 
       case "btnNext6":
-        await bot.sendMessage(ctx.message.chat.id, `✅Пятый вопрос`);
+        await bot.sendMessage(ctx.message.chat.id, `✅Пятый вопрос
+Удаляет ли лазерная эпиляция седые волосы?`);
         await bot.sendVideo(ctx.message.chat.id, 'video/video-answer-5.mp4', buttonNext_7);
         break;
 
       case "btnNext7":
-        await bot.sendMessage(ctx.message.chat.id, `✅Шестой вопрос`);
+        await bot.sendMessage(ctx.message.chat.id, `✅Шестой вопрос
+Лазерная эпиляция это больно?`);
         await bot.sendVideo(ctx.message.chat.id, 'video/video-answer-6.mp4', buttonNext_8);
         break;
 
@@ -189,7 +199,7 @@ bot.on('callback_query', async function(ctx){
 Для получения скидки вступите в нашу группу в телеграмм https://t.me/nkclinik  и назовите администратору промокод при звонке`, buttonsOfStart);
         break;
 
-      case "takePromoCode":
+      case "takePromoCodeCheck":
         const subscribe = await bot.getChatMember(channelId, ctx.from.id);
 
         if (subscribe.status == 'left' || subscribe.status == 'kicked') {
@@ -197,18 +207,14 @@ bot.on('callback_query', async function(ctx){
 
 Условия получения доступа — подписка на канал https://t.me/nkclinik
 
-Подписывайся и забирай доступы 🚀`, {
+Подписывайся и забирай промокод 🚀`, {
             parse_mode: 'HTML'
           })
           break;
         } else {
-          await bot.sendMessage(ctx.message.chat.id, `Отлично! Увидели подписку 😎`);
-
-          await bot.sendPhoto(ctx.message.chat.id, 'img/promocode-300.jpg');
-
-          await bot.sendMessage(ctx.message.chat.id, `Если остались вопросы или вы хотите сделать лазерную эпиляцию, то мы к вашим услугам. Приходите на консультацию.
-
-https://krasotaclinic.ru/?utm_source=tg&utm_medium=group&utm_campaign=bot&utm_content=epilation`);
+          await bot.sendMessage(ctx.message.chat.id, `Отлично! Увидели подписку 😎
+          
+Если остались вопросы или вы хотите сделать лазерную эпиляцию, то мы к вашим услугам. Приходите на консультацию.`, takePromocode);
         }
         break;
 
