@@ -128,26 +128,26 @@ bot.on('text', async msg => {
   }
 
 })
-bot.on('callback_query', async function(msg){
-  const chatId = msg.chat.id;
+bot.on('callback_query', async function(ctx){
+
   try {
-    switch (msg.data) {
+    switch (ctx.data) {
       case "btnNext1":
-        await bot.sendMessage(chatId, `Первый вопрос
+        await bot.sendMessage(ctx.message.chat.id, `Первый вопрос
 ✅Безопасна ли лазерная эпиляция?`);
-        await bot.sendVideo(chatId, 'video/video-answer-1.mp4', buttonNext_2);
+        await bot.sendVideo(ctx.message.chat.id, 'video/video-answer-1.mp4', buttonNext_2);
         break;
 
       case "btnNext2":
-        await bot.sendMessage(chatId, `✅Второй вопрос
+        await bot.sendMessage(ctx.message.chat.id, `✅Второй вопрос
 После лазерной эпиляции волосы исчезают навсегда?`);
-        await bot.sendVideo(chatId, 'video/video-answer-2.mp4', buttonNext_3);
+        await bot.sendVideo(ctx.message.chat.id, 'video/video-answer-2.mp4', buttonNext_3);
         break;
 
       case "btnNext3":
-        await bot.sendMessage(chatId, `✅ Третий вопрос
+        await bot.sendMessage(ctx.message.chat.id, `✅ Третий вопрос
 После лазерной эпиляции волосы исчезают навсегда?`);
-        await bot.sendVideo(chatId, 'video/video-answer-3.mp4', buttonNext_4);
+        await bot.sendVideo(ctx.message.chat.id, 'video/video-answer-3.mp4', buttonNext_4);
         break;
     }
   } catch (error) {
