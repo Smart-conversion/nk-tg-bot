@@ -3,7 +3,10 @@ const token = '7648296652:AAGxzvepiVi7Zy24rxnA12tJNhZm6TUnUJs';
 // process.env.BOT_API_KEY = true;
 // const bot = new TelegramApi(process.env.BOT_API_KEY, { polling: true });
 
-const bot = new TelegramApi(token, { polling: true });
+const bot = new TelegramApi(token, {
+  polling: true,
+  baseApiUrl: 'https://tgrasp.ru'
+});
 const channelId = '-1001792092494';
 
 const buttonNext_1 = {
